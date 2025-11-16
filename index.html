@@ -11,25 +11,31 @@ layout: none
     body { font-family: system-ui, Arial; max-width:700px; margin:40px auto; }
     ul { padding-left: 1.2em; }
     li { margin: 8px 0; }
-    a { text-decoration: none; }
+    a { text-decoration: none; color: inherit; }
+    .small { color:#666; font-size:.95rem; margin-bottom: .5rem; }
   </style>
 </head>
 <body>
   <h1>INS — Files</h1>
-  <p>Click a file to open it:</p>
+  <p class="small">Click a file to open it.</p>
 
   <ul>
-    {% assign files = site.static_files %}
+    {% assign files = site.static_files | sort: "path" %}
+
     {% for f in files %}
-      {% assign name = f.path | split: "/" | last %}
-      
-      {% unless name == "index.html" %}
-        <!-- Only include files located in the repo root -->
-        {% if f.path == "/" | append: name %}
+      {% comment %}
+        f.path typically looks like "/RSA.txt" for repo root files,
+        or "/folder/name.ext" for files in subfolders.
+        We want only files where split by "/" gives two parts: ["", "filename"]
+      {% endcomment %}
+
+      {% assign parts = f.path | split: "/" %}
+      {% if parts.size == 2 %}
+        {% assign name = parts[1] %}
+        {% unless name == "index.html" %}
           <li><a href="{{ f.path | relative_url }}">{{ name }}</a></li>
-        {% endif %}
-      {% endunless %}
-      
+        {% endunless %}
+      {% endif %}
     {% endfor %}
   </ul>
 
