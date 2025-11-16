@@ -1,0 +1,37 @@
+---
+layout: none
+---
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>INS — File List</title>
+  <style>
+    body { font-family: system-ui, Arial; max-width:700px; margin:40px auto; }
+    ul { padding-left: 1.2em; }
+    li { margin: 8px 0; }
+    a { text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>INS — Files</h1>
+  <p>Click a file to open it:</p>
+
+  <ul>
+    {% assign files = site.static_files %}
+    {% for f in files %}
+      {% assign name = f.path | split: "/" | last %}
+      
+      {% unless name == "index.html" %}
+        <!-- Only include files located in the repo root -->
+        {% if f.path == "/" | append: name %}
+          <li><a href="{{ f.path | relative_url }}">{{ name }}</a></li>
+        {% endif %}
+      {% endunless %}
+      
+    {% endfor %}
+  </ul>
+
+</body>
+</html>
