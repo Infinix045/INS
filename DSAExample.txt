@@ -1,0 +1,27 @@
+// DSAExample.java
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
+public class DSAExample {
+    public static void main(String[] args) {
+        SecureRandom rand = new SecureRandom();
+        BigInteger one = BigInteger.ONE;
+
+        BigInteger p = new BigInteger("10601");
+        BigInteger q = new BigInteger("53");
+        BigInteger g = new BigInteger("2619");
+
+        BigInteger x = new BigInteger("9");
+        BigInteger y = g.modPow(x, p);
+        BigInteger k = new BigInteger("36");
+        BigInteger hash = new BigInteger("6826");
+
+        BigInteger r = g.modPow(k, p).mod(q);
+        BigInteger s = k.modInverse(q).multiply(hash.add(x.multiply(r))).mod(q);
+
+        BigInteger w = s.modInverse(q);
+        BigInteger u1 = hash.multiply(w).mod(q);
+        BigInteger u2 = r.multiply(w).mod(q);
+        BigInteger v = g.modPow(u1, p).multiply(y.modPow(u2, p)).mod(p).mod(q);
+    }
+}

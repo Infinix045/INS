@@ -1,0 +1,45 @@
+// TranspositionCipher.java
+import java.io.*;
+import java.util.*;
+
+public class TranspositionCipher {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String keyword = br.readLine().toUpperCase();
+        int len = keyword.length();
+        Integer[] order = new Integer[len];
+        for (int i = 0; i < len; i++) order[i] = i;
+        Arrays.sort(order, (a,b) -> Character.compare(keyword.charAt(a), keyword.charAt(b)));
+        int[] key = new int[len];
+        for (int i = 0; i < len; i++) key[order[i]] = i+1;
+
+        String plain = br.readLine().toUpperCase();
+        int rows = (int)Math.ceil((double)plain.length()/len);
+        char[][] mat = new char[rows][len];
+        int k=0;
+        for(int i=0;i<rows;i++)
+            for(int j=0;j<len;j++)
+                mat[i][j] = (k<plain.length()) ? plain.charAt(k++) : 'X';
+
+        StringBuilder cipher = new StringBuilder();
+        for(int num=1;num<=len;num++)
+            for(int j=0;j<len;j++)
+                if(key[j]==num)
+                    for(int i=0;i<rows;i++)
+                        cipher.append(mat[i][j]);
+
+        char[][] decMat = new char[rows][len];
+        k=0;
+        for(int num=1;num<=len;num++)
+            for(int j=0;j<len;j++)
+                if(key[j]==num)
+                    for(int i=0;i<rows;i++)
+                        decMat[i][j] = cipher.charAt(k++);
+
+        StringBuilder decrypted = new StringBuilder();
+        for(int i=0;i<rows;i++)
+            for(int j=0;j<len;j++)
+                decrypted.append(decMat[i][j]);
+    }
+}

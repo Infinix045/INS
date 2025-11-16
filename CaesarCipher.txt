@@ -1,0 +1,19 @@
+// CaesarCipher.java
+import java.util.*;
+
+public class CaesarCipher {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String text = sc.nextLine().toLowerCase();
+        int key = sc.nextInt();
+
+        String cipher = "", plain = "";
+
+        for (char c : text.toCharArray())
+            cipher += (char) ((c - 'a' + key) % 26 + 'a');
+
+        for (char c : cipher.toCharArray())
+            plain += (char) ((c - 'a' - key + 26) % 26 + 'a');
+    }
+}

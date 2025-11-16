@@ -1,0 +1,8 @@
+// XorString.java
+public class XorString {
+    public static void main(String[] args) {
+        String s = "Hello World";
+        for (char c : s.toCharArray())
+            System.out.print((char)(c ^ 0));
+    }
+}

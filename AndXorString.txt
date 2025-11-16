@@ -1,0 +1,13 @@
+// AndXorString.java
+public class AndXorString {
+    public static void main(String[] args) {
+        String s = "Hello World";
+        int len = s.length();
+
+        for (int i = 0; i < len; i++)
+            System.out.print((char)(s.charAt(i) & 127));
+
+        for (int i = 0; i < len; i++)
+            System.out.print((char)((s.charAt(i) ^ 127) ^ 127));
+    }
+}

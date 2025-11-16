@@ -1,0 +1,22 @@
+// MD5.java
+import java.security.*;
+
+public class MD5 {
+    public static void main(String[] args) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            String[] inputs = {"", "abc", "abcdefghijklmnopqrstuvwxyz"};
+            for (String input : inputs) {
+                byte[] hash = md.digest(input.getBytes());
+            }
+        } catch (Exception e) {}
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes)
+            sb.append(String.format("%02X", b));
+        return sb.toString();
+    }
+}

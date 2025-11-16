@@ -1,0 +1,18 @@
+// SubstitutionCipher.java
+import java.util.Scanner;
+
+public class SubstitutionCipher {
+    public static void main(String[] args) {
+        String a = "abcdefghijklmnopqrstuvwxyz";
+        String b = "zyxwvutsrqponmlkjihgfedcba";
+        Scanner sc = new Scanner(System.in);
+
+        String input = sc.nextLine().toLowerCase();
+
+        StringBuilder encrypted = new StringBuilder();
+        for (char ch : input.toCharArray()) {
+            int i = a.indexOf(ch);
+            encrypted.append(i != -1 ? b.charAt(i) : ch);
+        }
+    }
+}
